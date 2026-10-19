@@ -1,0 +1,197 @@
+/* Link maker for the team. Same stationery, but plainly a tool. */
+
+:root {
+  --desk: #25332d;
+  --paper: #f5f3ee;
+  --ink: #232839;
+  --ink-muted: #5c6172;
+  --rule: rgb(35 40 57 / 0.16);
+  --serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sheet {
+  width: min(100% - 2rem, 46rem);
+  margin: clamp(1rem, 6vh, 4rem) auto;
+  padding: clamp(1.5rem, 6vw, 3.5rem);
+  background: var(--paper);
+  border-radius: 1px;
+  box-shadow: 0 30px 60px -20px rgb(4 10 7 / 0.6);
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font-weight: 340;
+  font-style: italic;
+  font-size: clamp(2rem, 6vw, 2.6rem);
+  line-height: 1.1;
+}
+
+.lede {
+  max-width: 36em;
+  margin: 0 0 2.25rem;
+  color: var(--ink-muted);
+}
+
+.composer {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field__label {
+  font-weight: 500;
+}
+
+textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+textarea:focus-visible,
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.check {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.check input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.3rem;
+  accent-color: var(--ink);
+}
+
+.check small {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+
+code {
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.results {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.results[hidden] {
+  display: none;
+}
+
+.results__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.results__count {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.results__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+button {
+  min-height: 2.5rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: minmax(6rem, 10rem) 1fr auto;
+  gap: 0.25rem 1rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.link__name {
+  font-style: italic;
+}
+
+.link__url {
+  overflow: hidden;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 34rem) {
+  .link {
+    grid-template-columns: 1fr auto;
+  }
+  .link__url {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}

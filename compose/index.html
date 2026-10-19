@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#25332d" />
+    <title>Make invitation links</title>
+    <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/css/fonts.css" />
+    <link rel="stylesheet" href="../assets/css/compose.css" />
+    <script type="module" src="../assets/js/compose.js"></script>
+  </head>
+
+  <body>
+    <main class="sheet">
+      <h1>Make invitation links</h1>
+      <p class="lede">
+        Type the first names of the people you are inviting, one per line. Each gets a personal link
+        to the same invitation. Names are not saved anywhere — they exist only in the links.
+      </p>
+
+      <form class="composer" autocomplete="off">
+        <label class="field">
+          <span class="field__label">First names</span>
+          <textarea
+            name="names"
+            rows="6"
+            spellcheck="false"
+            placeholder="Josh&#10;Zoë&#10;Anna"
+          ></textarea>
+        </label>
+
+        <label class="check">
+          <input type="checkbox" name="disguise" />
+          <span>
+            Hide names in the links
+            <small
+              >The link reads <code>?k=Sm9zaA</code> instead of <code>?name=Josh</code>. The
+              invitation looks the same.</small
+            >
+          </span>
+        </label>
+      </form>
+
+      <section class="results" aria-live="polite" hidden>
+        <div class="results__bar">
+          <h2 class="results__count"></h2>
+          <div class="results__actions">
+            <button type="button" data-action="copy-all">Copy all links</button>
+            <button type="button" data-action="download">Download spreadsheet (CSV)</button>
+          </div>
+        </div>
+        <ol class="links"></ol>
+      </section>
+
+      <template id="link-row">
+        <li class="link">
+          <span class="link__name"></span>
+          <a class="link__url" target="_blank" rel="noopener noreferrer"></a>
+          <button type="button" class="link__copy">Copy</button>
+        </li>
+      </template>
+    </main>
+  </body>
+</html>
