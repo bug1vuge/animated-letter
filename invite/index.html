@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#25332d" />
+    <meta name="color-scheme" content="dark light" />
+
+    <title>A letter for you</title>
+    <meta name="description" content="A letter, delivered by hand." />
+
+    <!-- Link previews (iMessage, WhatsApp, Slack, email). Deliberately generic:
+         the recipient's name is never put in a preview. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A letter for you" />
+    <meta property="og:description" content="Delivered by hand." />
+    <!-- Link previews need an absolute URL: update this if the site moves domain. -->
+    <meta
+      property="og:image"
+      content="https://bug1vuge.github.io/animated-letter/assets/img/preview.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="../assets/fonts/newsreader-latin-opsz-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../assets/fonts/newsreader-latin-opsz-italic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../assets/css/fonts.css" />
+    <link rel="stylesheet" href="../assets/css/invite.css" />
+    <script type="module" src="../assets/js/invite.js"></script>
+  </head>
+
+  <body>
+    <main class="desk" data-state="loading">
+      <!-- 1. The envelope ------------------------------------------------- -->
+      <section class="scene" aria-label="Envelope">
+        <div class="stage">
+          <div class="stage__shadow" aria-hidden="true"></div>
+
+          <button class="envelope" type="button" aria-describedby="envelope-hint">
+            <span class="visually-hidden" data-bind="envelope-label">Open the envelope</span>
+
+            <!-- Front: the addressed side -->
+            <span class="envelope__face envelope__front" aria-hidden="true">
+              <span class="envelope__from" data-bind="return-address"></span>
+              <span class="envelope__mark" data-bind="hand-mark"></span>
+              <span class="envelope__address">
+                <span class="envelope__name" data-bind="envelope-name"></span>
+              </span>
+            </span>
+
+            <!-- Back: flap, pocket and the letter waiting inside -->
+            <span class="envelope__face envelope__back" aria-hidden="true">
+              <span class="envelope__liner"></span>
+              <span class="envelope__slot"></span>
+              <svg
+                class="envelope__pocket"
+                viewBox="0 0 300 207"
+                preserveAspectRatio="none"
+                focusable="false"
+              >
+                <defs>
+                  <filter id="paper-grain" x="0" y="0" width="100%" height="100%">
+                    <feTurbulence
+                      type="fractalNoise"
+                      baseFrequency="1.4"
+                      numOctaves="2"
+                      result="noise"
+                    />
+                    <feColorMatrix
+                      in="noise"
+                      values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.07 0"
+                      result="grain"
+                    />
+                    <feComposite in="grain" in2="SourceGraphic" operator="in" result="clipped" />
+                    <feMerge>
+                      <feMergeNode in="SourceGraphic" />
+                      <feMergeNode in="clipped" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <path class="pocket__side" d="M0 0 L148 116 Q150 118 152 116 L300 0 V207 H0 Z" />
+                <path class="pocket__bottom" d="M0 207 L146 104 Q150 101 154 104 L300 207 Z" />
+                <path class="pocket__crease" d="M0 0 L148 116 M300 0 L152 116" />
+              </svg>
+              <span class="envelope__flap-shadow"><span></span></span>
+              <span class="envelope__flap">
+                <span class="flap__outer">
+                  <span class="flap__seal" data-bind="seal"></span>
+                </span>
+                <span class="flap__inner"></span>
+              </span>
+            </span>
+          </button>
+        </div>
+
+        <p class="scene__hint" id="envelope-hint">
+          <span class="hint--touch">Tap the envelope to open it</span>
+          <span class="hint--pointer">Click the envelope to open it</span>
+        </p>
+      </section>
+
+      <!-- 2. The letter --------------------------------------------------- -->
+      <section class="reading" aria-label="Letter" hidden>
+        <article class="letter" tabindex="-1">
+          <header class="letter__head">
+            <span class="letter__wordmark" data-bind="wordmark"></span>
+            <time class="letter__date" data-bind="date"></time>
+          </header>
+
+          <h1 class="letter__greeting" data-bind="greeting"></h1>
+          <div class="letter__body" data-bind="body"></div>
+          <p class="letter__signoff">
+            <span data-bind="valediction"></span>
+            <span class="letter__signature" data-bind="signature"></span>
+          </p>
+
+          <div class="player" data-state="idle">
+            <button class="player__toggle" type="button" aria-controls="voice-note">
+              <span class="player__label">Listen</span>
+            </button>
+            <span class="player__track">
+              <span class="player__progress" aria-hidden="true"></span>
+              <input
+                class="player__seek"
+                type="range"
+                min="0"
+                max="100"
+                step="0.1"
+                value="0"
+                aria-label="Position in voice note"
+              />
+            </span>
+            <span class="player__time" aria-live="off">0:00</span>
+            <audio id="voice-note" preload="metadata" data-bind="audio"></audio>
+          </div>
+        </article>
+      </section>
+
+      <noscript>
+        <p class="noscript">This letter needs JavaScript to open. Please enable it and reload.</p>
+      </noscript>
+    </main>
+  </body>
+</html>
