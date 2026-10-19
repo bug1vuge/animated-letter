@@ -1,0 +1,4 @@
+node_modules/
+assets/fonts/
+assets/audio/
+package-lock.json
